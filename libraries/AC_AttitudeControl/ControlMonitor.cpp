@@ -51,6 +51,18 @@ void AC_AttitudeControl::control_monitor_log(void)
 
 }
 
+// log AI message
+void AC_AttitudeControl::ai_monitor_log(void)
+{
+    DataFlash_Class::instance()->Log_Write("JMARPLE", "TimeUS,Rollout,AIRoll,Pitchout,AIPitch", "Qffff",
+                                          AP_HAL::micros64(),
+                                          (double)_ai_monitor.out_roll,
+                                          (double)_ai_monitor.ai_roll_out,
+                                          (double)_ai_monitor.out_pitch,
+                                          (double)_ai_monitor.ai_pitch_out);
+}
+
+
 /*
   return current controller RMS filter value for roll
  */

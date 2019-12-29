@@ -73,6 +73,12 @@
 #define AP_SERIALMANAGER_SBUS1_BUFSIZE_RX     16
 #define AP_SERIALMANAGER_SBUS1_BUFSIZE_TX     32
 
+// AI Control Tx/RX
+#define AP_SERIALMANAGER_AIControl_BAUD           921600
+#define AP_SERIALMANAGER_AIControl_BUFSIZE_RX     64
+#define AP_SERIALMANAGER_AIControl_BUFSIZE_TX     64
+
+
 class AP_SerialManager {
 public:
     AP_SerialManager();
@@ -102,6 +108,7 @@ public:
         SerialProtocol_ESCTelemetry = 16,
         SerialProtocol_Devo_Telem = 17,
         SerialProtocol_OpticalFlow = 18,
+        SerialProtocol_AIControl = 19
     };
 
     // get singleton instance

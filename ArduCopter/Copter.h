@@ -867,6 +867,8 @@ private:
     void radio_passthrough_to_motors();
     int16_t get_throttle_mid(void);
 
+    void radio_set_AI();
+
     // sensors.cpp
     void read_barometer(void);
     void init_rangefinder(void);
@@ -943,6 +945,11 @@ private:
     void userhook_auxSwitch2(uint8_t ch_flag);
     void userhook_auxSwitch3(uint8_t ch_flag);
 
+    void ai_control1();
+    void ai_control2();
+    void control_out_tx();
+    void control_in_rx();
+
 #include "mode.h"
 
     Mode *flightmode;
@@ -1013,6 +1020,14 @@ private:
     // mode.cpp
     Mode *mode_from_mode_num(const uint8_t mode);
     void exit_mode(Mode *&old_flightmode, Mode *&new_flightmode);
+
+    bool flag_RC_User_last = false;
+    bool flag_RC_User = false;
+    bool flag_AI_reset = false;
+    uint16_t Rxxx_cnt = 0;
+    uint16_t Rxxx_checksum_cnt = 0;
+    uint8_t errorcnt = 0;
+
 
 public:
     void mavlink_delay_cb();    // GCS_Mavlink.cpp

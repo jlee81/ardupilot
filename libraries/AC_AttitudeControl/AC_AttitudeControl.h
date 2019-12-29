@@ -292,7 +292,14 @@ public:
     virtual void passthrough_bf_roll_pitch_rate_yaw(float roll_passthrough, float pitch_passthrough, float yaw_rate_bf_cds) {};
 
     // enable inverted flight on backends that support it
-    virtual void set_inverted_flight(bool inverted) {}
+    virtual void set_inverted_flight(bool inverted) {};
+
+    float get_dt() const { return _dt; }
+    float get_output_roll() const { return _roll_out; }
+    float get_output_pitch() const { return _pitch_out; }
+    void set_ai_roll_in(float ai_roll_in) { _ai_roll_in = ai_roll_in; }
+    void set_ai_pitch_in(float ai_pitch_in) { _ai_pitch_in = ai_pitch_in; }
+
     
     // User settable parameters
     static const struct AP_Param::GroupInfo var_info[];
@@ -420,16 +427,32 @@ protected:
         float rms_yaw;
     } _control_monitor;
 
+    struct {
+       float out_roll;
+       float ai_roll_out;
+       float out_pitch;
+       float ai_pitch_out;
+   } _ai_monitor;
+
+
     // update state in ControlMonitor
     void control_monitor_filter_pid(float value, float &rms_P);
     void control_monitor_update(void);
 
     // true in inverted flight mode
     bool _inverted_flight;
+
+    // AI control
+    float _roll_out;
+    float _pitch_out;
+    float _ai_roll_in;
+    float _ai_pitch_in;
+
     
 public:
     // log a CTRL message
     void control_monitor_log(void);
+    void ai_monitor_log(void);
 
     // return current RMS controller filter for each axis
     float control_monitor_rms_output_roll(void) const;
