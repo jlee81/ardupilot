@@ -10,6 +10,7 @@
 #define AP_MOTORS_MATRIX_YAW_FACTOR_CW   -1
 #define AP_MOTORS_MATRIX_YAW_FACTOR_CCW   1
 
+
 /// @class      AP_MotorsMatrix
 class AP_MotorsMatrix : public AP_MotorsMulticopter {
 public:
@@ -39,7 +40,7 @@ public:
 
     // get_motor_mask - returns a bitmask of which outputs are being used for motors (1 means being used)
     //  this can be used to ensure other pwm outputs (i.e. for servos) do not conflict
-    uint16_t            get_motor_mask() override;
+    uint16_t            get_motor_mask() override;    
 
 protected:
     // output - sends commands to the motors
@@ -64,7 +65,8 @@ protected:
     void                normalise_rpy_factors();
 
     // call vehicle supplied thrust compensation if set
-    void                thrust_compensation(void) override;
+    void                thrust_compensation(void) override;   
+    
     
     float               _roll_factor[AP_MOTORS_MAX_NUM_MOTORS]; // each motors contribution to roll
     float               _pitch_factor[AP_MOTORS_MAX_NUM_MOTORS]; // each motors contribution to pitch

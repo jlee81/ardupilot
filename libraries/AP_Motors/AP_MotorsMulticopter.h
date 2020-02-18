@@ -98,10 +98,33 @@ public:
     FUNCTOR_TYPEDEF(thrust_compensation_fn_t, void, float *, uint8_t);
     void                set_thrust_compensation_callback(thrust_compensation_fn_t callback) {
         _thrust_compensation_callback = callback;
-    }
+    } 
+
+
+    // copied from "MotorsMatrix.h"
+    // add_motor using just position and yaw_factor (or prop direction)
+    virtual void                add_motor(int8_t motor_num, float angle_degrees, float yaw_factor, uint8_t testing_order) {}
+    // add_motor using separate roll and pitch factors (for asymmetrical frames) and prop direction
+    virtual void                add_motor(int8_t motor_num, float roll_factor_in_degrees, float pitch_factor_in_degrees, float yaw_factor, uint8_t testing_order) {}
+    // remove_motor
+    virtual void                remove_motor(int8_t motor_num) {}
+
+    void                set_motor_switch(bool flag_disable_motor, int8_t motor_num_disable, float motor_ratio) {
+        _flag_disable_motor = flag_disable_motor; 
+        _motor_num_disable = motor_num_disable;
+        _motor_ratio = motor_ratio;
+    }    
+
+    bool _flag_disable_motor = false;
+    int8_t _motor_num_disable = 0U;
+    float _motor_ratio = 0.0;
     
     // var_info for holding Parameter information
     static const struct AP_Param::GroupInfo        var_info[];
+
+    
+
+
 
 protected:
 

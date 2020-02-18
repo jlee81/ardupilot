@@ -611,6 +611,7 @@ void AP_MotorsMulticopter::output_motor_mask(float thrust, uint8_t mask)
             } else {
                 motor_out = get_pwm_output_min();
             }
+            
             rc_write(i, motor_out);
         }
     }

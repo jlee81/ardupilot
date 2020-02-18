@@ -837,10 +837,11 @@ float AC_AttitudeControl::rate_target_to_motor_roll(float rate_actual_rads, floa
     // Compute output in range -1 ~ +1
     float output = get_rate_roll_pid().get_p() + integrator + get_rate_roll_pid().get_d() + get_rate_roll_pid().get_ff(rate_target_rads);
 
-    output -= _ai_roll_in;
+    _ai_monitor.out_roll = output;
+
+//    output -= _ai_roll_in;
     _roll_out = constrain_float(output, -1.0f, 1.0f);
 
-    _ai_monitor.out_roll = output;
     _ai_monitor.ai_roll_out = _ai_roll_in;
 
     // Constrain output
@@ -866,10 +867,13 @@ float AC_AttitudeControl::rate_target_to_motor_pitch(float rate_actual_rads, flo
     // Compute output in range -1 ~ +1
     float output = get_rate_pitch_pid().get_p() + integrator + get_rate_pitch_pid().get_d() + get_rate_pitch_pid().get_ff(rate_target_rads);
 
-    output -= _ai_pitch_in;
+    _ai_monitor.out_pitch = output;
+
+//    output -= _ai_pitch_in;
+
     _pitch_out = constrain_float(output, -1.0f, 1.0f);
 
-    _ai_monitor.out_pitch = output;
+    
     _ai_monitor.ai_pitch_out = _ai_pitch_in;
 
     // Constrain output

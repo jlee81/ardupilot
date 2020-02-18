@@ -276,6 +276,8 @@ void Copter::rc_loop()
     // -----------------------------------------
     read_radio();
     read_control_switch();
+    radio_set_AI();
+    radio_motor_switch();    
 }
 
 // throttle_loop - should be run at 50 hz
@@ -388,6 +390,8 @@ void Copter::twentyfive_hz_logging()
     }
 #endif
 
+    attitude_control->ai_monitor_log();   
+
 #if PRECISION_LANDING == ENABLED
     // log output
     Log_Write_Precland();
@@ -422,10 +426,9 @@ void Copter::three_hz_loop()
 void Copter::one_hz_loop()
 {
     // monitor
-    gcs().send_text(MAV_SEVERITY_INFO,"%d / %d", Rxxx_cnt, Rxxx_checksum_cnt);
+    gcs().send_text(MAV_SEVERITY_INFO,"%d / %f", Rxxx_checksum_cnt, motor_ratio);
     Rxxx_cnt = 0;
     Rxxx_checksum_cnt = 0;
-
 
     if (should_log(MASK_LOG_ANY)) {
         Log_Write_Data(DATA_AP_STATE, ap.value);
