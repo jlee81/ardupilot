@@ -868,7 +868,6 @@ private:
     int16_t get_throttle_mid(void);
 
     void radio_set_AI();
-    void radio_motor_switch();
 
     // sensors.cpp
     void read_barometer(void);
@@ -1025,14 +1024,8 @@ private:
     bool flag_RC_User_last = false;
     bool flag_RC_User = false;
     bool flag_AI_reset = false;
-    uint16_t Rxxx_cnt = 0;
     uint16_t Rxxx_checksum_cnt = 0;
     uint8_t errorcnt = 0;
-
-    bool flag_disable_motor = false;
-    bool flag_disable_motor_last = false;
-    int8_t motor_num_disable = 0U;    
-    float motor_ratio = 0.0;
 
 
 public:

@@ -839,7 +839,7 @@ float AC_AttitudeControl::rate_target_to_motor_roll(float rate_actual_rads, floa
 
     _ai_monitor.out_roll = output;
 
-//    output -= _ai_roll_in;
+    output -= _ai_roll_in;
     _roll_out = constrain_float(output, -1.0f, 1.0f);
 
     _ai_monitor.ai_roll_out = _ai_roll_in;
@@ -869,8 +869,7 @@ float AC_AttitudeControl::rate_target_to_motor_pitch(float rate_actual_rads, flo
 
     _ai_monitor.out_pitch = output;
 
-//    output -= _ai_pitch_in;
-
+    output -= _ai_pitch_in;
     _pitch_out = constrain_float(output, -1.0f, 1.0f);
 
     

@@ -113,17 +113,7 @@ void AP_MotorsMatrix::output_to_motors()
     // send output to each motor
     for (i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++) {
         if (motor_enabled[i]) {
-            if (_flag_disable_motor)
-            {
-                if (i == _motor_num_disable)
-                {
-                    rc_write(i, get_pwm_output_min() + (motor_out[i]-get_pwm_output_min()) * _motor_ratio);
-                } else {
-                    rc_write(i, motor_out[i]);
-                }
-            } else {
-                rc_write(i, motor_out[i]);
-            }
+            rc_write(i, motor_out[i]);
         }
 
     }
@@ -366,10 +356,7 @@ void AP_MotorsMatrix::remove_motor(int8_t motor_num)
         motor_enabled[motor_num] = false;
         _roll_factor[motor_num] = 0;
         _pitch_factor[motor_num] = 0;
-        _yaw_factor[motor_num] = 0;
-
-        // add-rc_write(2020.01.08)
-        rc_write(motor_num, 0);
+        _yaw_factor[motor_num] = 0;        
     }
 }
 

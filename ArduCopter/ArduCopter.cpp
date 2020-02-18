@@ -275,9 +275,7 @@ void Copter::rc_loop()
     // Read radio and 3-position switch on radio
     // -----------------------------------------
     read_radio();
-    read_control_switch();
     radio_set_AI();
-    radio_motor_switch();    
 }
 
 // throttle_loop - should be run at 50 hz
@@ -426,8 +424,7 @@ void Copter::three_hz_loop()
 void Copter::one_hz_loop()
 {
     // monitor
-    gcs().send_text(MAV_SEVERITY_INFO,"%d / %f", Rxxx_checksum_cnt, motor_ratio);
-    Rxxx_cnt = 0;
+    gcs().send_text(MAV_SEVERITY_INFO,"%d", Rxxx_checksum_cnt);
     Rxxx_checksum_cnt = 0;
 
     if (should_log(MASK_LOG_ANY)) {
