@@ -25,5 +25,16 @@ void Copter::update_precland()
     }
 
     copter.precland.update(height_above_ground_cm, rangefinder_alt_ok());
+
+    static bool precland_flag = false;
+    if (copter.precland.target_acquired() && !precland_flag )
+    {
+        gcs().send_text(MAV_SEVERITY_INFO, "IR Marker Target Acquired");        
+    }
+    else if (!copter.precland.target_acquired() && precland_flag )
+    {
+        gcs().send_text(MAV_SEVERITY_INFO, "IR Marker Target Lost");
+    }
+    precland_flag = copter.precland.target_acquired();
 }
 #endif
