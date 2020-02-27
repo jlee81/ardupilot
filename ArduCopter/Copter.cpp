@@ -410,7 +410,7 @@ void Copter::twentyfive_hz_logging()
     }
 #endif
 
-//    attitude_control->ai_monitor_log();
+    attitude_control->ai_monitor_log();
 
 #if PRECISION_LANDING == ENABLED
     // log output
