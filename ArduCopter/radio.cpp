@@ -215,3 +215,25 @@ int16_t Copter::get_throttle_mid(void)
 #endif
     return channel_throttle->get_control_mid();
 }
+
+void Copter::radio_set_AI()
+{
+    if ( RC_Channels::rc_channel(CH_7)->get_radio_in() > 1600 )
+    {
+        flag_RC_User = true;
+    }
+    else
+    {
+        flag_RC_User = false;
+    }
+
+    if (flag_RC_User_last != flag_RC_User)
+    {
+        if(flag_RC_User)
+           gcs().send_text(MAV_SEVERITY_CRITICAL,"AI CONTROL ON");
+        else
+           gcs().send_text(MAV_SEVERITY_CRITICAL,"AI CONTROL OFF");
+    }
+    
+    flag_RC_User_last = flag_RC_User;
+}

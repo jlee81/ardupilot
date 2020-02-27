@@ -93,6 +93,13 @@ public:
     void                set_forward(float forward_in) { _forward_in = forward_in; }; // range -1 ~ +1
     void                set_lateral(float lateral_in) { _lateral_in = lateral_in; };     // range -1 ~ +1
 
+    // set_roll_ai
+    void                set_roll_ai(float roll_in) { _roll_in_ai = roll_in; };    // range -1 ~ +1
+    void                set_pitch_ai(float pitch_in) { _pitch_in_ai = pitch_in; };  // range -1 ~ +1    
+    float               get_output_roll() const { return _roll_out; }
+    float               get_output_pitch() const { return _pitch_out; }
+
+
     // accessors for roll, pitch, yaw and throttle inputs to motors
     float               get_roll() const { return _roll_in; }
     float               get_pitch() const { return _pitch_in; }
@@ -224,7 +231,7 @@ protected:
     uint16_t            _loop_rate;                 // rate in Hz at which output() function is called (normally 400hz)
     uint16_t            _speed_hz;                  // speed in hz to send updates to motors
     float               _roll_in;                   // desired roll control from attitude controllers, -1 ~ +1
-    float               _roll_in_ff;                // desired roll feed forward control from attitude controllers, -1 ~ +1
+    float               _roll_in_ff;                // desired roll feed forward control from attitude controllers, -1 ~ +1  
     float               _pitch_in;                  // desired pitch control from attitude controller, -1 ~ +1
     float               _pitch_in_ff;               // desired pitch feed forward control from attitude controller, -1 ~ +1
     float               _yaw_in;                    // desired yaw control from attitude controller, -1 ~ +1
@@ -256,6 +263,11 @@ protected:
     bool                _thrust_boost;          // true if thrust boost is enabled to handle motor failure
     bool                _thrust_balanced;       // true when output thrust is well balanced
     float               _thrust_boost_ratio;    // choice between highest and second highest motor output for output mixing (0 ~ 1). Zero is normal operation
+
+    float               _roll_in_ai;
+    float               _pitch_in_ai;
+    float               _roll_out;
+    float               _pitch_out;
 
 private:
     static AP_Motors *_singleton;

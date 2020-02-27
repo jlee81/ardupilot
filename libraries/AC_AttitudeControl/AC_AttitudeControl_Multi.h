@@ -78,8 +78,10 @@ public:
     // sanity check parameters.  should be called once before take-off
     void parameter_sanity_check() override;
 
+
     // user settable parameters
     static const struct AP_Param::GroupInfo var_info[];
+    
 
 protected:
 
@@ -97,4 +99,5 @@ protected:
     AP_Float              _thr_mix_man;     // throttle vs attitude control prioritisation used when using manual throttle (higher values mean we prioritise attitude control over throttle)
     AP_Float              _thr_mix_min;     // throttle vs attitude control prioritisation used when landing (higher values mean we prioritise attitude control over throttle)
     AP_Float              _thr_mix_max;     // throttle vs attitude control prioritisation used during active flight (higher values mean we prioritise attitude control over throttle)
+
 };

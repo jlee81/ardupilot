@@ -238,8 +238,14 @@ void Copter::fast_loop()
     // update INS immediately to get current gyro data populated
     ins.update();
 
+    // Rx from AI_Control module : AIoutput (Roll, Pitch)
+    ai_control1();
+
     // run low level rate controllers that only require IMU data
     attitude_control->rate_controller_run();
+
+    // Tx to AI_Control module : output, ahrs Roll/Pitch
+    ai_control2();
 
     // send outputs to the motors library immediately
     motors_output();
@@ -290,6 +296,8 @@ void Copter::rc_loop()
     // -----------------------------------------
     read_radio();
     rc().read_mode_switch();
+    radio_set_AI();
+
 }
 
 // throttle_loop - should be run at 50 hz
@@ -402,6 +410,8 @@ void Copter::twentyfive_hz_logging()
     }
 #endif
 
+//    attitude_control->ai_monitor_log();
+
 #if PRECISION_LANDING == ENABLED
     // log output
     Log_Write_Precland();
@@ -437,6 +447,10 @@ void Copter::three_hz_loop()
 // one_hz_loop - runs at 1Hz
 void Copter::one_hz_loop()
 {
+    // monitor
+    gcs().send_text(MAV_SEVERITY_INFO,"%d", Rxxx_checksum_cnt);
+    Rxxx_checksum_cnt = 0;
+
     if (should_log(MASK_LOG_ANY)) {
         Log_Write_Data(DATA_AP_STATE, ap.value);
     }
@@ -456,6 +470,10 @@ void Copter::one_hz_loop()
         // set all throttle channel settings
         motors->set_throttle_range(channel_throttle->get_radio_min(), channel_throttle->get_radio_max());
 #endif
+        flag_AI_reset = true;
+    }
+    else {
+        flag_AI_reset = false;
     }
 
     // update assigned functions and enable auxiliary servos

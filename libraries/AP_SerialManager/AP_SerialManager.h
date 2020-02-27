@@ -89,6 +89,7 @@
 #define AP_SERIALMANAGER_SLCAN_BUFSIZE_RX       128
 #define AP_SERIALMANAGER_SLCAN_BUFSIZE_TX       128
 
+
 class AP_SerialManager {
 public:
     AP_SerialManager();
