@@ -119,6 +119,7 @@ void Copter::control_in_rx()
           
         }
         
+        Rxxx_cnt++;
         ucStatus = 0;
         ucCnt = 0;
         RxChecksum = 0;

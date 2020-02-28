@@ -448,8 +448,9 @@ void Copter::three_hz_loop()
 void Copter::one_hz_loop()
 {
     // monitor
-    gcs().send_text(MAV_SEVERITY_INFO,"%d", Rxxx_checksum_cnt);
+    gcs().send_text(MAV_SEVERITY_INFO,"%d %d", Rxxx_cnt, Rxxx_checksum_cnt);
     Rxxx_checksum_cnt = 0;
+    Rxxx_cnt = 0;
 
     if (should_log(MASK_LOG_ANY)) {
         Log_Write_Data(DATA_AP_STATE, ap.value);
