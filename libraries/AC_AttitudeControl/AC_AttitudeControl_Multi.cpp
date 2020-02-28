@@ -350,8 +350,8 @@ void AC_AttitudeControl_Multi::rate_controller_run()
 
     _ai_monitor.total_roll_out = _roll_out;
     _ai_monitor.total_pitch_out = _pitch_out;
-    _ai_monitor.ai_roll_out = _ai_roll_in;
-    _ai_monitor.ai_pitch_out = _ai_pitch_in;
+    _ai_monitor.ai_roll_out = -_ai_roll_in;
+    _ai_monitor.ai_pitch_out = -_ai_pitch_in;
 
     _motors.set_yaw(get_rate_yaw_pid().update_all(_rate_target_ang_vel.z, gyro_latest.z, _motors.limit.yaw) + _actuator_sysid.z);
     _motors.set_yaw_ff(get_rate_yaw_pid().get_ff()*_feedforward_scalar);
