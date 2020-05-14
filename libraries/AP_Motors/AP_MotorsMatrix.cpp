@@ -147,8 +147,8 @@ void AP_MotorsMatrix::output_armed_stabilizing()
 
     // apply voltage and air pressure compensation
     const float compensation_gain = get_compensation_gain(); // compensation for battery voltage and altitude
-    _roll_out = constrain_float((_roll_in + _roll_in_ff + _roll_in_ai),-1.0f, 1.0f);
-    _pitch_out = constrain_float((_pitch_in + _pitch_in_ff + _pitch_in_ai),-1.0f, 1.0f);
+    _roll_out = constrain_float((_roll_in + _roll_in_ff - _roll_in_ai),-1.0f, 1.0f);
+    _pitch_out = constrain_float((_pitch_in + _pitch_in_ff - _pitch_in_ai),-1.0f, 1.0f);
     
     roll_thrust = _roll_out * compensation_gain;
     pitch_thrust = _pitch_out * compensation_gain;
